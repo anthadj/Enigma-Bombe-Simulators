@@ -1,0 +1,24 @@
+The enigma machine is simple to compute. 
+
+Look at picture EnigmaDiagram.jpeg in this folder.
+There are 4 layers of letter change (1 plugboard + 3 rotor wheels) and one reflector. Essentially the the letter passes through the four layers of letter changes twice and once through the reflector as shown in the .jpeg.
+
+Specifics:
+Plugboard: 10 pairs of letters out of 13 possible. Direction doesn't matter (if a->b, b->a regardless directions)
+Rotors: 26 pairs of letters. Each of the 26 letters mapped onto another. Letters can map on to themselves. 5 rotors, from which 3 were chosen and placed in random order.  Direction matters (if a->b the b->a only if travelling in the opposite direction, i.e. after going through reflector)
+Reflector: 13 pairs of letters. Same letter pairs not allowed! Direction doesn't matter (if a->b, b->a)
+
+Direction matters in the rotors:
+The letter scrambling in the 3 rotors is the opposite in the opposite direction, i.e. if a->h, in the direction right to left, then h->a in the direction left to right, but h-/>a in the direction right to left.  
+
+Rotors change after each letter input:
+The rotors rotate after every letter input. So if a rotor rotated by 1 position, it would have the effect of a->h to become b->h. Once the first rotor did a full circle, the second rotor would rotate by 1 position, like the hands of a clock. The base of the rotors could also be rotated manually. So by having the same positions for the three rotors, instead of starting from a->h, it would become a->i (next letter in the series).
+
+The enigma machine problem:
+The problem with the enigma machine is that the it never returns the same letter as the one inputted. This mistake occurred because the reflector would never return the signal from the same letter it came from, i.e. as can be seen from the diagram H->D in the reflector. This is what allowed the allies to break the code. 
+
+
+Other notes:
+The rotors were also not always rotating by 1, but sometimes they would rotate by more than 1, or they would rotate after 20 rotations of one rotor instead of 26. This was a disadvantage in the enigma machine, and it is not coded in the code.
+
+
