@@ -62,7 +62,7 @@ def applyMovement(rotors,movement):
   newRotors=deepcopy(rotors)
   for i in range(0,len(movement)):
     spacesToMove=movement[i]
-    #print spacesToMove
+    #print (spacesToMove)
     if spacesToMove!=0: #If movement is specified
       for j in range(0,len(rotors[i])):
 
@@ -98,7 +98,7 @@ def randomizeReflector():
 def enigmaGenerateRandomVals(plugPairs):
 
   if plugPairs <0 or plugPairs >10:
-    print "Please enter a number between 0 and ten, to specify the number of pairs on the plibboard"
+    print ("Please enter a number between 0 and ten, to specify the number of pairs on the plibboard")
     exit(0)
 
   #------Create Plugboard------
@@ -133,9 +133,9 @@ def enigmaGenerateRandomVals(plugPairs):
   reflector=randomizeReflector()
   #------------------------------------------
   
-  print "Plugboard index pairs: ", plugboard
-  print "Rotors index pairs (three): ", rotors
-  print "Reflector index pairs: ", reflector
+  print ("Plugboard index pairs: ", plugboard)
+  print ("Rotors index pairs (three): ", rotors)
+  print ("Reflector index pairs: ", reflector)
   
 
 
@@ -223,7 +223,7 @@ def enigmaEncrypt(rotorValues,text):
         #Add ecnrypted letter to string
         encryption+=Letters[num]
         
-        #print rotorPositions
+        #print (rotorPositions)
                 
         #Find new position of rotors [2,4,21] goes to [2,4,22]. Also finds how many positions each rotor should rotate, in this case [0, 0, 1]
         rotorMovement=rePositionRotors(rotorPositions)
@@ -234,21 +234,25 @@ def enigmaEncrypt(rotorValues,text):
   return encryption
 
 
+def main():
+    #Use this function to generate a new set of random pairs for the plugboard, rotors and reflector. The variable should be equal or less than 10, which specifies how many pairs to create in the plugboard
+    #enigmaGenerateRandomVals(10)
+    #exit(0)
 
-#Use this function to generate a new set of random pairs for the plugboard, rotors and reflector. The variable should be equal or less than 10, which specifies how many pairs to create in the plugboard
-#enigmaGenerateRandomVals(10)
-#exit(0)
+    #Write you text to encrypt here with small letters, capital letters will be ignored
+    text="let's see if alan turing can crack this code"
+    #text="usmajowhkfolzfjdlgmrbwhgozdpajbyqnc"
+    text="weather report. twenty six degrees, a partly cloudy and warm day is expected. lowest relative humidity near thirtythree percent. expect thirteen hours of sunshine which is eightyseven percent of possible sunshine. heil hitler"
+    #text="vsdezoqdlxlgifenzyteslgnruriqhxstijqxkuochyqvelnhbdhkcceamrsijnmicuoccnccvoqxtcolvldrzovyvecicywbuxeojubxitptsexixyhmccmeetvjeyezmtttygmbkefranwcgnjvwbctktllkwlczlrxbuchfanviuakftkahuxhbzf"
 
-#Write you text to encrypt here with small letters, capital letters will be ignored
-text="let's see if alan turing can crack this code"
-#text="usmajowhkfolzfjdlgmrbwhgozdpajbyqnc"
-text="weather report. twenty six degrees, a partly cloudy and warm day is expected. lowest relative humidity near thirtythree percent. expect thirteen hours of sunshine which is eightyseven percent of possible sunshine. heil hitler"
-#text="vsdezoqdlxlgifenzyteslgnruriqhxstijqxkuochyqvelnhbdhkcceamrsijnmicuoccnccvoqxtcolvldrzovyvecicywbuxeojubxitptsexixyhmccmeetvjeyezmtttygmbkefranwcgnjvwbctktllkwlczlrxbuchfanviuakftkahuxhbzf"
+    #rotorValues are a list of lists where the first list is the order of the rotors (5 total, 0-4) and the second list is the position of each rotor (26 positions 0-25, one for each letter). These where the secret values passed by the German army every month and changed daily. The other variable changed daily is the plugboard connections, that can be found at the top of the page.
+    #The third list shows the manual rotations that could be done to the rotors, i.e. the position remains the same, but each letter maps to the one previous to it. For now it is set to 0,0,0.
+    rotorValues=[[3,1,4],[2,16,21],[0,0,0]]
 
-#rotorValues are a list of lists where the first list is the order of the rotors (5 total, 0-4) and the second list is the position of each rotor (26 positions 0-25, one for each letter). These where the secret values passed by the German army every month and changed daily. The other variable changed daily is the plugboard connections, that can be found at the top of the page.
-#The third list shows the manual rotations that could be done to the rotors, i.e. the position remains the same, but each letter maps to the one previous to it. For now it is set to 0,0,0.
-rotorValues=[[3,1,4],[2,16,21],[0,0,0]]
+    encryptedText=enigmaEncrypt(rotorValues,text)#list of lists, where first list represents order of rotors, second list represents position of each rotor from 0 to 25
 
-encryptedText=enigmaEncrypt(rotorValues,text)#list of lists, where first list represents order of rotors, second list represents position of each rotor from 0 to 25
+    print (encryptedText)
 
-print encryptedText
+
+if __name__ == "__main__":
+  main()
