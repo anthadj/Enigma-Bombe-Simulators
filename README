@@ -3,7 +3,7 @@ Theory And Some History:
 The enigma machine is simple to compute. 
 
 Look at picture EnigmaDiagram.jpeg in this folder.
-There are 4 layers of letter change (1 plugboard + 3 rotor wheels) and one reflector. Essentially the the letter passes through the four layers of letter changes twice and once through the reflector as shown in the .jpeg.
+There are 5 layers of letter change (1 plugboard + 3 rotor wheels) and one reflector. Essentially the the letter passes through the four layers of letter changes twice and once through the reflector as shown in the .jpeg.
 
 Specifics:
 Plugboard: 10 pairs of letters out of 13 possible. Direction doesn't matter (if a->b, b->a regardless directions)
