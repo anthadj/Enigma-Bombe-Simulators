@@ -1,3 +1,5 @@
+Theory And Some History:
+
 The enigma machine is simple to compute. 
 
 Look at picture EnigmaDiagram.jpeg in this folder.
@@ -22,3 +24,21 @@ Other notes:
 The rotors were also not always rotating by 1, but sometimes they would rotate by more than 1, or they would rotate after 20 rotations of one rotor instead of 26. This was a disadvantage in the enigma machine, and it is not coded in the code.
 
 
+
+
+
+To Run The Machine: 
+
+In the directory 'EnigmaMachine' there is a a script called enigma.py and two text files. The text file 'inputText.txt' has the text that the script will read and encrypt. The encrypted text will be stored in the file 'encryptedText.txt'. 
+
+To run the enigma script: python enigma
+
+There are 3 important methods in the script: 
+1. encryptWithDefaultValues: 	This encrypts text with the default values (plugboard, reflector and rotor connections, as well as rotor positions). It is enough to see what the code works. 
+2. encryptWithUserInput: 		This produces new random connections (for plugboard, reflector and rotor) and allows the user to import his/her own rotor positions. It outputs new connections and rotor positions
+3. encryptWithPreExistingValues:	This reads the outputed random connections and rotor positions from method 2 and encrypts the text using them. 
+
+These 3 methods can be found in the main function, 2 of them need to be commented out
+
+
+Note: If you copy the encrypted message from the 'encryptedText.txt' file and paste it in the inputText.txt' file (and making sure you have the same values) the machine will decrypt the message and return the original one
