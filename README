@@ -31,7 +31,7 @@ To Run The Machine:
 
 In the directory 'EnigmaMachine' there is a a script called enigma.py and two text files. The text file 'inputText.txt' has the text that the script will read and encrypt. The encrypted text will be stored in the file 'encryptedText.txt'. 
 
-To run the enigma script: python enigma
+To run the enigma script: python enigma.py
 
 There are 3 important methods in the script: 
 1. encryptWithDefaultValues: 	This encrypts text with the default values (plugboard, reflector and rotor connections, as well as rotor positions). It is enough to see what the code works. 
@@ -42,3 +42,11 @@ These 3 methods can be found in the main function, 2 of them need to be commente
 
 
 Note: If you copy the encrypted message from the 'encryptedText.txt' file and paste it in the inputText.txt' file (and making sure you have the same values) the machine will decrypt the message and return the original one
+
+
+
+
+
+Bombe Machine:
+
+This is the machine created by Alan Turing which deciphered the enigma machine encrypted messages. This project is not finished yet. 
