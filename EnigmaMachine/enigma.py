@@ -9,10 +9,10 @@ Letters=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r'
 #----------------Defualt values for Plugboard Rotors and Reflector----------------
 #---------------------------------------------------------------------------------
 
-#The values of the plugboard, up to ten pairs. These were generated randomly using the function enigmaGenerateRandomVals. These were changed every day, but for simplicity we will assume to be the default values
+#The values of the plugboard, up to ten pairs allowed. These were generated randomly using the function enigmaGenerateRandomVals. These were changed every day, but for simplicity we will assume to be the default values
 Plugboard= [[6, 24], [10, 12], [13, 23], [17, 9], [8, 2], [19, 16], [15, 7], [18, 21], [5, 11], [22, 4]]
 
-#List of lists consisting of 5 rotors. These were generated randomly using the function enigmaGenerateRandomVals. These are considered the default rotor values. Three must be chosen at random when the machine runs. Their order must also be random.
+#List of lists making the connections of the 5 rotors. These were generated randomly using the function enigmaGenerateRandomVals. These are considered the default rotor values. Three must be chosen at random when the machine runs. Their order must also be random.
 Rotors= [[[0, 3], [1, 7], [2, 21], [3, 10], [4, 25], [5, 15], [6, 12], [7, 13], [8, 19], [9, 1], [10, 8], [11, 22], [12, 23], [13, 16], [14, 5], [15, 0], [16, 24], [17, 17], [18, 11], [19, 2], [20, 20], [21, 6], [22, 9], [23, 18], [24, 14], [25, 4]], [[0, 6], [1, 0], [2, 7], [3, 23], [4, 8], [5, 17], [6, 11], [7, 4], [8, 20], [9, 22], [10, 5], [11, 1], [12, 25], [13, 10], [14, 21], [15, 19], [16, 18], [17, 3], [18, 24], [19, 16], [20, 12], [21, 13], [22, 9], [23, 2], [24, 15], [25, 14]], [[0, 18], [1, 16], [2, 1], [3, 19], [4, 2], [5, 25], [6, 21], [7, 14], [8, 0], [9, 23], [10, 9], [11, 7], [12, 11], [13, 8], [14, 13], [15, 20], [16, 24], [17, 15], [18, 5], [19, 17], [20, 10], [21, 22], [22, 12], [23, 3], [24, 6], [25, 4]], [[0, 10], [1, 6], [2, 13], [3, 25], [4, 19], [5, 12], [6, 1], [7, 15], [8, 24], [9, 11], [10, 18], [11, 4], [12, 21], [13, 5], [14, 22], [15, 17], [16, 14], [17, 23], [18, 9], [19, 16], [20, 3], [21, 2], [22, 0], [23, 7], [24, 8], [25, 20]], [[0, 4], [1, 16], [2, 25], [3, 13], [4, 18], [5, 5], [6, 19], [7, 15], [8, 10], [9, 1], [10, 12], [11, 6], [12, 23], [13, 20], [14, 7], [15, 17], [16, 24], [17, 0], [18, 14], [19, 3], [20, 2], [21, 22], [22, 8], [23, 21], [24, 9], [25, 11]]]
 
 #The values of the 5 rotors. These were generated randomly using the function enigmaGenerateRandomVals. They are considered the default values
@@ -30,6 +30,7 @@ Reflector = [[24, 8], [12, 16], [7, 0], [15, 21], [11, 17], [1, 10], [9, 6], [5,
 #--Methods used to randomize Plugboard Rotors and Reflectors if user chooses to--
 #--------------------------------------------------------------------------------
 
+#Randomize the plugboard. Up to 10 pairs allowed
 def randomizePlugBoard(pairs):
   boardPairs=list()
   numbersSeen=list()
@@ -61,6 +62,7 @@ def randomizeRotor():
       
   return rotorPairs
   
+#Method that ranndomly chooses rotor order. Not used at the moment
 def chooseRotorOrder():
   order=list()
   for i in range(0,3):
@@ -71,28 +73,9 @@ def chooseRotorOrder():
         break
         
   return order
-  
-  
-#Loop through the movement list. Each entry represents how many positions each rotor should be manually moved. i.e. rotor1=[[0,16],[1,2],...,[25,8]] and movement=[1,0,0] then rotor1=[[0,8],[1,16],...]
-def applyMovement(rotors,movement):
-  newRotors=deepcopy(rotors)
-  for i in range(0,len(movement)):
-    spacesToMove=movement[i]
-    #print (spacesToMove)
-    if spacesToMove!=0: #If movement should occur
-      for j in range(0,len(rotors[i])):
-
-        if (j+spacesToMove)>=0 and (j+spacesToMove)<=25:
-          newRotors[i][j][1] = rotors[i][j+spacesToMove][1]
-        elif j+spacesToMove>25 :
-          newRotors[i][j][1] = rotors[i][j+spacesToMove-26][1]
-        elif j+spacesToMove<0:
-          newRotors[i][j][1] = rotors[i][j+spacesToMove+26][1]
-
-  return newRotors
         
-        
-#The difference between the rotors and the reflector, is that in the reflector, we can't map a letter to itself. That is why in the if statement we include the "and (ranNum != letNum)" part
+#Randomize refletor
+#In the reflector, we can't map a letter to itself. That is why in the if statement we include the "and (ranNum != letNum)" part
 def randomizeReflector():
   reflectorPairs=list()
   numbersSeen=list()
@@ -171,6 +154,35 @@ def enigmaGenerateRandomVals(plugPairs):
 #--------------------------------------------------------------------------------
 
 
+
+
+
+#--------------------------------------------------------------------------------
+#---------------------Methods used for encyption of text-------------------------
+#--------------------------------------------------------------------------------
+
+#Applied movement of rotors
+#Each entry represents how many positions each rotor should be manually moved.
+#i.e. rotor1=[[0,16],[1,2],...,[25,8]] and movement=[1,0,0] then rotor1=[[0,8],[1,16],...] rotor2 and rotor3 would remain unchanged under this movement.
+#Important: movement of rotors occurs every time a letter is encrypted. In that case the movement is always [0,0,1].
+#If third rotor rotates 26 times the movement becomes [0,1,1] and so on like a clock.
+def applyMovement(rotors,movement):
+  newRotors=deepcopy(rotors)
+  for i in range(0,len(movement)):
+    spacesToMove=movement[i]
+    #print (spacesToMove)
+    if spacesToMove!=0: #If movement should occur
+      for j in range(0,len(rotors[i])):
+
+        if (j+spacesToMove)>=0 and (j+spacesToMove)<=25:
+          newRotors[i][j][1] = rotors[i][j+spacesToMove][1]
+        elif j+spacesToMove>25 :
+          newRotors[i][j][1] = rotors[i][j+spacesToMove-26][1]
+        elif j+spacesToMove<0:
+          newRotors[i][j][1] = rotors[i][j+spacesToMove+26][1]
+
+  return newRotors
+        
 
 #After a letter is encrypted, the rotors need to rotate. This method carries out this rotation
 def rePositionRotors(positions):
@@ -268,124 +280,17 @@ def enigmaEncrypt(rotorValues,text):
         
   return encryption
   
-
-#--------------------------------------------------------------------------------
-#---Two encryption methods. One using default values, other using user inputs----
-#--------------------------------------------------------------------------------
-#Method added for completion. The user is adviced to use default values
-#This method produces new random connections for pluhboard, reflector and rotors
-#It then lets the user choose the initial rotor values.
-#It outputs all variabls to fils 'randomConnections.txt' and 'rotorValues.txt' which
-#are needed for method encryptWithPreExistingValues
-def encryptWithUserInput(text):
-
-  #Use this function to generate a new set of random pairs for the plugboard, rotors and reflector. The variable should be equal or less than 10, which specifies how many pairs to create in the plugboard
-  print ('Creating new randomly generated connections for the plugboard, rotors and reflector')
-  print ('Number of plugboard connections will also be randomised between 1 and 10 \n\n')
-  numOfPlugConnections=random.randint(1,10)
-  enigmaGenerateRandomVals(numOfPlugConnections)
-    
-    
-    
-  print ('\n\nUser needs to manually input the 3 sets of rotor values, consisting of order of rotors, position of each rotor and manual adjustment to each rotor')
-    
-  #------User inputs values------
-  print ('There are 5 rotors, choose 3 by pressing a number from 0 to 4 and pressing enter. Rotors must be different from each other, i.e. 0,0,3 wont be accepted')
-    
-  rotorList=list()
-  while(len(rotorList) < 3):
-    rotorNum = input()
-    if rotorNum.isdigit(): #Check value given is integer
-      rotorInt=int(rotorNum) #Change input to integer
-      if (rotorInt < 5 and rotorInt >= 0) and (rotorInt not in rotorList): #Check value is within correct range and is not used again
-        rotorList.append(rotorInt)
-  print (rotorList)
-    
-    
-    
-  print ('Each rotor can start from a position from 1 to 26, where each position represents a letter of the english alphabet')
-  print ('Input one number from 0 to 25 as the position of each rotor. First entry will be for the first rotor and so on')
-    
-  rotorPositionList=list()
-  while(len(rotorPositionList) < 3):
-    rotorPositionNum = input()
-    if rotorPositionNum.isdigit(): #Check value given is integer
-      rotorPositionInt=int(rotorPositionNum) #Change input to integer
-      if rotorPositionInt < 26 and rotorPositionInt >= 0: #Check rotor position is within accepted range
-        rotorPositionList.append(rotorPositionInt)
-  print (rotorPositionList)
-
-
-
-  print ('Finally, manual rotations could be made to the rotor positions. This would be in added as an extra precaution for the war')
-  print ('Extra rotations would basically act to change the rotorPositions. For example, if a rotor was placed at position 14, and you apply ')
-  print ('a manual adjustment of 4 positions. Adjustments have no limit, you can do positive, or negative adjustments and it can be any number of them')
-  print ('Please enter the manual adjustments for each rotor. 1st adjustmnet will be done on rotor 1 and so on')
-
-  rotorManualAdjustmentList=list()
-  while(len(rotorManualAdjustmentList) < 3):
-    rotorManualAdjustmentNum = input()
-    try:
-      rotorManualAdjustmentInt = int(rotorManualAdjustmentNum)
-      rotorManualAdjustmentList.append(rotorManualAdjustmentInt)
-    except:
-      continue
-  print (rotorManualAdjustmentList)
-  #------Finished inputting user's manual rotor values
-
-
-    
-  rotorValues=[rotorList,rotorPositionList,rotorManualAdjustmentList]
-  print (rotorValues)
-        
-  outputManualRotorvalues(rotorValues) #Outputing rotor values
-    
-  encryptedText=enigmaEncrypt(rotorValues,text)#list of lists, where first list represents order of rotors, second list represents position of each rotor from 0 to 25
-
-  return encryptedText
-  
-#This method is used to encrypt a message when there exist pre-existing values
-#for plugboard, reflector and rotor values, as well as rotor variables.
-#Files randomConnections.txt and rotorValues.txt need to exist in the directory
-#in order for this method to run. Files are produced by encryptWithUserInput method
-def encryptWithPreExistingValues(text):
-  
-  plugboard,reflector,rotors = readPreExistingConnections()
-  
-  #Set the values that were just read, to be global
-  global Plugboard
-  global Rotors
-  global Reflector
-  
-  Plugboard = plugboard
-  Reflector = reflector
-  Rotors = rotors
-  
-#  print ("Plugboard: ", Plugboard)
-    
-  rotorValues = readPreExistingRotorValues()
-  print ('Rotor values: ', rotorValues)
-  
-  print ('Encrypting text with pre-existing values: ')
-  encryptedText=enigmaEncrypt(rotorValues,text)
-  
-  return encryptedText
-  
-  
-#Encrypts text using default values
-def encryptWithDefaultValues(text):
-  
-
-  #rotorValues are a list of lists where the first list is the order of the rotors (5 total, 0-4) and the second list is the position of each rotor (26 positions 0-25, one for each letter). The third list shows the manual rotations that could be done to the rotors, i.e. the position remains the same, but each letter maps to the one previous to it for example.
-  #These where the secret values passed by the German army on a sheet of paper every month. On the sheet of paper it had enough values for the whole month and they had to be changed daily. The other variable changed daily is the plugboard connections, that can be found at the top of the page (default)
-  rotorValues=[[3,1,4],[2,16,21],[0,0,0]]
-  encryptedText=enigmaEncrypt(rotorValues,text)#list of lists, where first list represents order of rotors, second list represents position of each rotor from 0 to 25
-  return encryptedText
-    
 #--------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------
 #--------------------------------------------------------------------------------
-
+  
+  
+  
+  
+  
+#--------------------------------------------------------------------------------
+#----------------Small functions used to read and output data--------------------
+#--------------------------------------------------------------------------------
 def readPreExistingRotorValues():
   rotorVals=list()
   with open('rotorValues.txt','r') as f:
@@ -460,6 +365,140 @@ def outputRandomConnections(plugboardVals,rotorVals,reflectorVals):
       for val in vals:
         f.write(str(val[0])+','+str(val[1])+' ')
       f.write('\n')
+#--------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------
+  
+  
+  
+  
+  
+  
+
+#----------------------------------------------------------------------------------------------------------------------
+#---Three encryption methods. One using default values, one using user inputs and one using pre-existing user inputs---
+#----------------------------------------------------------------------------------------------------------------------
+
+#Method added for completion. The user is adviced to use default values (encryptWithDefaultValues)
+#This method produces new random connections for pluhboard, reflector and rotors
+#It then lets the user choose the initial rotor values.
+#It outputs all variables to files 'randomConnections.txt' and 'rotorValues.txt' which
+#are needed for method encryptWithPreExistingValues
+def encryptWithUserInput(text):
+
+  #Use this function to generate a new set of random pairs for the plugboard, rotors and reflector. The variable should be equal or less than 10, which specifies how many pairs to create in the plugboard
+  print ('Creating new randomly generated connections for the plugboard, rotors and reflector')
+  print ('Number of plugboard connections will also be randomised between 1 and 10 \n\n')
+  numOfPlugConnections=random.randint(1,10)
+  enigmaGenerateRandomVals(numOfPlugConnections)
+    
+    
+    
+  #------User inputs values------
+  print ('\n\nUser needs to manually input the 3 sets of rotor values, consisting of order of rotors, position of each rotor and manual adjustment to each rotor')
+  print ('There are 5 rotors, choose 3 by pressing a number from 0 to 4 and pressing enter. Rotors must be different from each other, i.e. 0,0,3 wont be accepted')
+    
+  rotorList=list()
+  while(len(rotorList) < 3):
+    rotorNum = input()
+    if rotorNum.isdigit(): #Check value given is integer
+      rotorInt=int(rotorNum) #Change input to integer
+      if (rotorInt < 5 and rotorInt >= 0) and (rotorInt not in rotorList): #Check value is within correct range and is not used again
+        rotorList.append(rotorInt)
+  print (rotorList)
+    
+    
+  print ('Each rotor can start from a position from 1 to 26, where each position represents a letter of the english alphabet')
+  print ('Input one number from 0 to 25 as the position of each rotor. First entry will be for the first rotor and so on')
+    
+  rotorPositionList=list()
+  while(len(rotorPositionList) < 3):
+    rotorPositionNum = input()
+    if rotorPositionNum.isdigit(): #Check value given is integer
+      rotorPositionInt=int(rotorPositionNum) #Change input to integer
+      if rotorPositionInt < 26 and rotorPositionInt >= 0: #Check rotor position is within accepted range
+        rotorPositionList.append(rotorPositionInt)
+  print (rotorPositionList)
+
+
+  print ('Finally, manual rotations could be made to the rotor positions. This would be in added as an extra precaution for the war')
+  print ('Extra rotations would basically act to change the rotorPositions. For example, if a rotor was placed at position 14, and you apply ')
+  print ('a manual adjustment of 4 positions. Adjustments have no limit, you can do positive, or negative adjustments and it can be any number of them')
+  print ('Please enter the manual adjustments for each rotor. 1st adjustmnet will be done on rotor 1 and so on')
+
+  rotorManualAdjustmentList=list()
+  while(len(rotorManualAdjustmentList) < 3):
+    rotorManualAdjustmentNum = input()
+    try:
+      rotorManualAdjustmentInt = int(rotorManualAdjustmentNum)
+      rotorManualAdjustmentList.append(rotorManualAdjustmentInt)
+    except:
+      continue
+  print (rotorManualAdjustmentList)
+  #------Finished inputting user's manual rotor values------
+
+
+  #list of lists, where first list represents order of rotors, second represents position of each rotor from 0 to 25, third is rotor manual rotations
+  rotorValues=[rotorList,rotorPositionList,rotorManualAdjustmentList]
+  print (rotorValues)
+        
+  outputManualRotorvalues(rotorValues) #Outputing rotor values
+    
+  encryptedText=enigmaEncrypt(rotorValues,text)
+
+  return encryptedText
+  
+  
+  
+#Method added for completion. The user is adviced to use default values (encryptWithDefaultValues)
+#This method is used to encrypt a message when there exist pre-existing values
+#for plugboard, reflector and rotor values, as well as rotor variables.
+#Files randomConnections.txt and rotorValues.txt need to exist in the directory
+#in order for this method to run. These files are produced by the encryptWithUserInput() method
+def encryptWithPreExistingValues(text):
+  
+  plugboard,reflector,rotors = readPreExistingConnections()
+  
+  #Set the values that were just read, to be global
+  global Plugboard
+  global Rotors
+  global Reflector
+  
+  Plugboard = plugboard
+  Reflector = reflector
+  Rotors = rotors
+  
+#  print ("Plugboard: ", Plugboard)
+    
+  rotorValues = readPreExistingRotorValues()
+  print ('Rotor values: ', rotorValues)
+  
+  print ('Encrypting text with pre-existing values: ')
+  encryptedText=enigmaEncrypt(rotorValues,text)
+  
+  return encryptedText
+  
+  
+
+#User is adviced to use this function
+#Method that encrypts text in inputText.txt file using default values. The values were produced randomly using method enigmaGenerateRandomVals()
+def encryptWithDefaultValues(text):
+
+  #rotorValues are a list of lists where the first list is the order of the rotors (5 total, 0-4) and the second list is the position of each rotor (26 positions 0-25, one for each letter). The third list shows the manual rotations that could be done to the rotors,
+  #These where the secret values passed by the German army on a sheet of paper every month. On the sheet of paper it had enough values for the whole month and they had to be changed daily.
+  rotorValues=[[3,1,4],[2,16,21],[0,0,0]]
+  encryptedText=enigmaEncrypt(rotorValues,text)#list of lists, where first list represents order of rotors, second list represents position of each rotor from 0 to 25
+  return encryptedText
+
+#--------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------
+
+
+
+
+
+
 
 def main():
 
