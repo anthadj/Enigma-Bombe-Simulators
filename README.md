@@ -1,3 +1,10 @@
+# Description 
+Simulation of the enigma encryption machine used by Germany during WW2
+
+
+
+# Dependencies 
+- Python3.9
 
 
 
@@ -28,42 +35,30 @@ The rotors were also not always rotating by 1, but sometimes they would rotate b
 
 
 
-# Executing the code: 
+# How to execute  
 
 In the directory 'EnigmaMachine' there is a a script called enigma.py and two text files. The text file 'inputText.txt' has the text that the script will read and encrypt. The encrypted text will be stored in the file 'encryptedText.txt'. 
+Note: If you copy the encrypted message from the 'encryptedText.txt' file and paste it in the inputText.txt' file (and making sure you have the same values) the machine will decrypt the message and return the original one
 
 To run the enigma script: python enigma.py
 
+
+
+# Code description
 There are 3 important methods in the script: 
 1. encryptWithDefaultValues: 	This encrypts text with the default values (plugboard, reflector and rotor connections, as well as rotor positions). It is enough to see what the code works. 
 2. encryptWithUserInput: 		This produces new random connections (for plugboard, reflector and rotor) and allows the user to import his/her own rotor positions. It outputs new connections and rotor positions
 3. encryptWithPreExistingValues:	This reads the outputed random connections and rotor positions from method 2 and encrypts the text using them. 
 
-These 3 methods can be found in the main function, 2 of them need to be commented out
-
-Note: If you copy the encrypted message from the 'encryptedText.txt' file and paste it in the inputText.txt' file (and making sure you have the same values) the machine will decrypt the message and return the original one
+These 3 methods can be found in the main method, 2 of them need to be commented out in order for the code to run
 
 
 
-# Description 
-Using three pre-existing techniques along with a fourth one, we generate the potential energy curves (PECs) of nitrogen molecule ions with up to four electrons missing. The code produces the inputs files necessary to generate the PECs using the quantum chemistry package Molpro. The code can also be adjusted to produce PECs for nitrogen molecules with more electrons missing, as well as generate the PECs for different molecules.
-
-# Dependencies 
-- Python3.9        (Needed to run code)
-- MOLPRO2020.1	     (Needed to run the input files once created)
-
-# How to execute 
-Download whole "src" directory. Then follow steps below.
-- python main.py   (Code step 1, run from "src" directory: Creates file structure + initial inputs)
-- molpro < N2_\*.in > ../outputs/N2_\*.out   (Run all input files from "inputs" directory. Output results into outputs folder)
-- python main.py   (Code step 2, run from "src" directory: Checks all inputs ran successfully. Cleans outputs directory. Analyses SA-CASSCF and SA-TS-CASSCF. Produce new specific SA-CASSCF and SA-TS-CASSCF input files that produce wavefunctions)
-- molpro < N2_\*\_IC.in > ../outputs/N2_\*\_IC.out   (Run all new SA-TS-CASSCF input files from "inputs" directory)
-- molpro < N2_\*\_\*\_\*\_\*\_I.in > ../outputs/N2_\*\_\*\_\*\_\*\_I.out   (Run all new SA-CASSCF input files from "inputs" directory)
-- python main.py   (Code step 3, run from "src" directory: Check all inputs from above two lines ran successfully. Clean outputs directory)
-
-# Help and Collaborations 
-For any help or collaborations please email:
+# Help 
+For any help please email:
 antonis.hadjipittas@gmail.com
 
+
+
 # License 
-Apache License 2.0
+GNU General Public License v3.0
