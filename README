@@ -1,4 +1,4 @@
-Theory And Some History:
+# Theory and history of the matchine:
 
 The enigma machine is simple to compute. 
 
@@ -25,9 +25,7 @@ The rotors were also not always rotating by 1, but sometimes they would rotate b
 
 
 
-
-
-To Run The Machine: 
+# Executing the code: 
 
 In the directory 'EnigmaMachine' there is a a script called enigma.py and two text files. The text file 'inputText.txt' has the text that the script will read and encrypt. The encrypted text will be stored in the file 'encryptedText.txt'. 
 
@@ -40,13 +38,7 @@ There are 3 important methods in the script:
 
 These 3 methods can be found in the main function, 2 of them need to be commented out
 
-
 Note: If you copy the encrypted message from the 'encryptedText.txt' file and paste it in the inputText.txt' file (and making sure you have the same values) the machine will decrypt the message and return the original one
 
 
 
-
-
-Bombe Machine:
-
-This is the machine created by Alan Turing which deciphered the enigma machine encrypted messages. This project is not finished yet. 
