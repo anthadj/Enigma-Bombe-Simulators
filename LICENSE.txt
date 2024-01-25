@@ -631,7 +631,8 @@ to attach them to the start of each source file to most effectively
 state the exclusion of warranty; and each file should have at least
 the "copyright" line and a pointer to where the full notice is found.
 
-    <one line to give the program's name and a brief idea of what it does.>
+    EnigmaMachine is a recreation of the world war 2 enigma encryption machines used by the Germans. It encrypts normal text 
+    to an encrypted version and also decrypts the encrypted text back to its original form, if the right adjustments are known. 
     Copyright (C) 2022  Antonis Hadjipittas
 
     This program is free software: you can redistribute it and/or modify
