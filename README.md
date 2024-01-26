@@ -12,15 +12,21 @@ Simulation of the enigma encryption machine used by Germany during WW2
 
 The enigma machine is simple to compute. 
 
-Look at picture EnigmaDiagram.jpeg in this folder.
-There are 5 layers of letter change (1 plugboard + 3 rotor wheels) and one reflector. Essentially the the letter passes through the four layers of letter changes twice and once through the reflector as shown in the .jpeg.
+Look at the picture below. The user types on the keyboard, and what is outputed after encryption is shown on the lampboard. 
+There are four layers of letter change (one plugboard + three rotor wheels) and one reflector which reflects the input back through the four layers of letter change once more. As a result, the input letter passes through the four layers of letter changes twice and once through the reflector as shown in the picture.
+
+<img src="EnigmaDiagram.jpeg" width="900">
 
 Specifics:
-Plugboard: 10 pairs of letters out of 13 possible. Direction doesn't matter (if a->b, b->a regardless directions)
-Rotors: 26 pairs of letters. Each of the 26 letters mapped onto another. Letters can map on to themselves. 5 rotors, from which 3 were chosen and placed in random order.  Direction matters (if a->b the b->a only if travelling in the opposite direction, i.e. after going through reflector)
-Reflector: 13 pairs of letters. Same letter pairs not allowed! Direction doesn't matter (if a->b, b->a)
 
-Direction matters in the rotors:
+Plugboard: A letter is paired with another letter. Out of the 13 possible pairs only 10 are used. If a letter is not paired with another 
+letter it simply remains unchanged. Direction doesn't matter (if a->b, b->a always, regardless of directions)
+
+Rotors: 26 pairs of letters. Each of the 26 letters mapped onto another. Letters can map on to themselves. 5 rotors, from which 3 were chosen and placed in random order.  Direction matters (if a->b then b->a only if travelling in the opposite direction)
+
+Reflector: 13 pairs of letters. Same letter pairs not allowed! Direction doesn't matter (if a->b, b->a always, regardlsess of direction)
+
+Details about how direction matters in the rotors:
 The letter scrambling in the 3 rotors is the opposite in the opposite direction, i.e. if a->h, in the direction right to left, then h->a in the direction left to right, but h-/>a in the direction right to left.  
 
 Rotors change after each letter input:
@@ -29,9 +35,14 @@ The rotors rotate after every letter input. So if a rotor rotated by 1 position,
 The enigma machine problem:
 The problem with the enigma machine is that the it never returns the same letter as the one inputted. This mistake occurred because the reflector would never return the signal from the same letter it came from, i.e. as can be seen from the diagram H->D in the reflector. This is what allowed the allies to break the code. 
 
-
 Other notes:
 The rotors were also not always rotating by 1, but sometimes they would rotate by more than 1, or they would rotate after 20 rotations of one rotor instead of 26. This was a disadvantage in the enigma machine, and it is not coded in the code.
+
+History:
+During the war, the Germans would alter on a daily basis:
+- The plugboard connections 
+- Choose three out of five standard rotors 
+- Choose the order of the rotors. 
 
 
 
@@ -46,10 +57,9 @@ python enigma.py
 
 Note: If you copy the encrypted message from the 'encryptedText.txt' file and paste it in the inputText.txt' file (and making sure you have the same values) the machine will decrypt the message and return the original one
 
-
 # Code description
 There are 3 important methods in the script: 
-1. encryptWithDefaultValues: 	This encrypts text with the default values (plugboard, reflector and rotor connections, as well as rotor positions). It is enough to see what the code works. 
+1. encryptWithDefaultValues: 	This encrypts text with the default values (plugboard, reflector and rotor connections, as well as rotor positions). It is enough to see that the code works. 
 2. encryptWithUserInput: 		This produces new random connections (for plugboard, reflector and rotor) and allows the user to import his/her own rotor positions. It outputs new connections and rotor positions
 3. encryptWithPreExistingValues:	This reads the outputed random connections and rotor positions from method 2 and encrypts the text using them. 
 
