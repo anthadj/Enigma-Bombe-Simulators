@@ -38,10 +38,13 @@ The rotors were also not always rotating by 1, but sometimes they would rotate b
 # How to execute  
 
 In the directory 'EnigmaMachine' there is a a script called enigma.py and two text files. The text file 'inputText.txt' has the text that the script will read and encrypt. The encrypted text will be stored in the file 'encryptedText.txt'. 
+
+To run the enigma script: 
+```
+python enigma.py
+```
+
 Note: If you copy the encrypted message from the 'encryptedText.txt' file and paste it in the inputText.txt' file (and making sure you have the same values) the machine will decrypt the message and return the original one
-
-To run the enigma script: python enigma.py
-
 
 
 # Code description
